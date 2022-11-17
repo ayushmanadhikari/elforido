@@ -2,7 +2,7 @@ import scrapy
 import json
 from urllib.parse import urlencode
 from elflorida.items import ElfloridaItem
-
+import datetime
 
 
 
@@ -42,18 +42,28 @@ class ElfSpider(scrapy.Spider):
         data = data['data']
         product = {}
         for d in data:
-            product['categoryName'] = d['categoryName']
-            product['subcategoryName'] = d['subcategoryName']
-            product['brand'] = ""
-            product['upc'] = d['slug']
+            product['Date'] = datetime.datetime.now().strftime('%d/%m/%Y')
+            product['Canal'] = ""
+            product['Category'] = d['categoryName']
+            product['Subcategory'] = d['subcategoryName']        
+            product['Marca'] = ""
+            product['Modelo'] = ""
+            product['SKU'] = ""
+            product['UPC'] = d['slug']
             product['Item'] = d['productName']
-            product['URLSKU'] = "https://tienda.elflorido.com.mx/productos/"+str(d['productId'])
+            product['Item Characteristics'] = d['productDescription']
+            product['URL SKU'] = "https://tienda.elflorido.com.mx/productos/"+str(d['productId'])
             product['Image'] = d['mediaUrl']
             product['Price'] = d['priceTotal']
-            product['SalePrice'] = ""
+            product['Sale Price'] = ""
+            product['Shipment Cost'] = ""
             product['SaleFlag'] = ""
-            product['stock'] = d['stock']
-            product['productDescription'] = d['productDescription']
+            product['Store ID'] = ""
+            product['Store Name'] = ""
+            product['Store Address'] = ""
+            product['Stock'] = d['stock']
+            product['UPC WM'] = ""
+            product['Final Price'] = ""
 
             yield product
             
