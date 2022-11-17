@@ -45,7 +45,18 @@ class ElfSpider(scrapy.Spider):
             product['Date'] = datetime.datetime.now().strftime('%d/%m/%Y')
             product['Canal'] = ""
             product['Category'] = d['categoryName']
-            product['Subcategory'] = d['subcategoryName']        
+            product['Subcategory'] = d['subcategoryName']
+            
+            subs_list = product['Subcategory'].split(",")
+            count = 0
+            for sub in subs_list:
+                count = count + 1
+                col1 = f"Subcategory{count}"
+                product[col1] = sub
+                print(count)           
+
+            del product['Subcategory']
+
             product['Marca'] = ""
             product['Modelo'] = ""
             product['SKU'] = ""
